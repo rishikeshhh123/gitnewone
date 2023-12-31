@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <link href="style1.css" rel="stylesheet">
+        <form id="whole" >
+            <label for="hello">
+                choose expense Amount:</label>
+                <input type ="number" value="number" id="hello"> <br>
+            
+            <label for="choose1">
+                choose Description: </label>
+                <select id="choose1">
+                    <option selected value="">choose...</option>
+                    <option value=" petrol">petrol</option>
+                    <option value=" launch/dinner/breakfast">launch/dinner/breakfast</option>
+                    <option value=" cloths/things">cloths/things</option>
+                    <option value=" other">other</option>
+                    
+                </select><br> 
+                <label for="choose2">
+                Choose  a category:</label>
+                <select id="choose2">
+                    <option seleted value="">choose..</option>
+                    <option value=" fuel">fuel</option>
+                    <option value=" food">lfood</option>
+                    <option value=" fashion">fashion</option>
+                    <option value=" other">other</option>
+                    
+                </select><br>
+                <button type="submit" 
+                style="background-color: lightblue;"
+                 id="updateButton" 
+                 class="btn btn-primary" 
+                 onclick="productUpdate();">Add Expenses</button>
+                <li class="fruit"><button class="delete-btn">delete</button> 
+                 <button>edit</button></li><br> 
+
+                 
+
+            
+        </form>
+    </body>
+</html>
