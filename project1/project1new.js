@@ -1,6 +1,6 @@
 //event.preventDefault()
 
-            let data = "\r amount " + amount.value + " \r\n " + "type1 " + type1.value + " \r\n " + "type2 " + type2.value  ;
+           /* let data = "\r amount " + amount.value + " \r\n " + "type1 " + type1.value + " \r\n " + "type2 " + type2.value  ;
             console.log(data); 
             localStorage.setItem('hello', document.getElementById('hello').value);
             const name = localStorage.getItem('hello');
@@ -30,4 +30,26 @@
                 storedFormData.push(formData);
             
                 localStorage.setItem('formData', JSON.stringify(storedFormData));
+            } */
+            function savetostorage(event){
+                event.preventDefault();
+                const type1=event.target.number1.value;
+                const type2=event.target.number2.value;
+                const type3=event.target.number3.value;
+
+                const obj={
+                    type1,
+                    type2,
+                    type3
+                }
+                localStorage.setItem(obj.type2,JSON.stringify(obj))
+                showUserOnScreen(obj)
             }
+           function showUserOnScreen(obj){
+             const parentElem=document.getElementById("listofitems");
+             const childElem=document.createElemnet('li') ;
+             childElem.textContent=obj.type1+' - '+ obj.type2+' - '+ obj.type3;
+             parentElem.appendChild(childElem)  
+        }
+
+        
