@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+      </head>
+    <body>
+        <form onsubmit="saveTolocalStorage(event)">
+            <label style="color:blue" for="sellingprice">Selling_Price:</label>
+            <input type="number"  name="sellingprice"  id="sellingprice" /><br><br>
+      <label style="color:blue"for="productname">Product_name:</label>
+      <input type="text"  name="productname" id="productname" /><br><br>
+             <label style="color:blue" for="category">Choose_a_category:</label>
+            <select id="category" name="category">
+              
+                <option value="electronics">Electronics</option>
+                <option value="food">Food</option>
+                <option value="skincare">Skincare</option>
+            </select><br><br>
+            <button style="color:red"  type="submit">Add Product</button>
+              </form>
+        <ul id="items">    
+        </ul>
+       
+    </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.5/axios.min.js"></script>
+<script>
+  
+    function saveTolocalStorage(event){
+     event.preventDefault();
+     const price = event.target.sellingprice.value;
+     const product = event.target.productname.value;
+     const choose = event.target.category.value;
+     
+      const obj={
+        price,
+        product,
+        choose
+      }
+       
+   axios.post("https://crudcrud.com/api/494ea48e00414f4482c6ed0bcf1782f4/project",obj)
+   .then((response)=>{
+    showOnScreen(response.data)
+    console.log(response)
+   })
+   .catch((err)=>{
+    document.body.innerHTML="<h3>something wrong</h3>"
+    console.log(err)
+   })
+     // localStorage.setItem(obj.price,JSON.stringify(obj));
+      
+    }
+      /*window.addEventListner("DOmContentLoaded",()=>{
+        axios.get("https://crudcrud.com/api/494ea48e00414f4482c6ed0bcf1782f4/project",obj)
+        .then((response)=>{
+          for(var i=0;i<response.data.length;i++){
+            showOnScreen(response.data[i])
+          }
+        })
+        .catch((err)=>{
+          console.log(err)
+        })
+      })*/
+    function showOnScreen(obj){
+
+      const parentElement=document.getElementById("items")
+      
+      const childElement=document.createElement('li')
+      childElement.textContent=obj.price+'---'+obj.product+'---'+obj.choose;
+
+      const deletebtn=document.createElement("input");
+      deletebtn.type="button";
+      deletebtn.value="Delete";
+      deletebtn.onclick=()=>{
+        localStorage.removeItem(obj.price);
+        parentElement.removeChild(childElement);
+      }
+      childElement.appendChild(deletebtn)
+      parentElement.appendChild(childElement)
+    }
+    function deleteUser(userId){
+      axios.delete(`https://crudcrud.com/api/494ea48e00414f4482c6ed0bcf1782f4/project/${userId}`)
+      .then((response)=>{
+        removeUserFromScreen(userId)
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+    }
+    function removeUserFromScreen(userId){
+      const parentNode=document.getElementById("items");
+      const childNode=document.getElementById(userId);
+      if(childNode){
+        parentNode.removeChild(childNode)
+      }
+    }
+    
+    
+</script>
+    
+   
+</html>
