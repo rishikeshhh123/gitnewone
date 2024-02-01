@@ -1,13 +1,29 @@
-//const http=require('http');
-const express=require('express');
-const app=express();
-app.use((req,res,next)=>{
-    console.log("hello")
-    next();
-})
-app.use((req,res,next)=>{
-    console.log("hello2")
-    res.send("<h1>welcome </h1>")
-})
-//const server=http.createServer(app);
-app.listen(3001);
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
+
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use('/add-product', (req, res, next) => {
+    res.send('<form action="/product" method="POST">' +
+        '<input type="text" name="title" placeholder="Product Title">' +
+        '<input type="text" name="size" placeholder="Product Size">' +
+        '<button type="submit">Add Product</button></form>');
+});
+
+app.use('/product', (req, res, next) => {
+    // Access both title and size from the request body
+    const { title, size } = req.body;
+
+    // Log the data to the console
+    console.log('Product Title:', title);
+    console.log('Product Size:', size);
+
+    res.redirect('/');
+});
+
+app.use('/', (req, res, next) => {
+    res.send('<h1>Welcome</h1>');
+});
+
+app.listen(3003);
