@@ -5,4 +5,4 @@ const sequelize = new Sequelize('node-complete', 'root', 'Sachin@123', {
   host: 'localhost'
 });
 
-module.exports = sequelize;
+module.exports = { sequelize, Sequelize };
