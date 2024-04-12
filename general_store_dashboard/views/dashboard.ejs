@@ -1,0 +1,54 @@
+<!-- views/dashboard.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>General Store Seller's Dashboard</title>
+  <link rel="stylesheet" href="/styles/style.css">
+</head>
+
+<body>
+  <h1>Welcome to the Seller's Dashboard</h1>
+  <form action="/items/add" method="post">
+    <label for="name">Item Name:</label>
+    <input type="text" id="name" name="name" required>
+    <label for="description">Description:</label>
+    <textarea id="description" name="description" required></textarea>
+    <label for="price">Price:</label>
+    <input type="number" id="price" name="price" min="0" step="0.01" required>
+    <label for="quantity">Quantity:</label>
+    <input type="number" id="quantity" name="quantity" min="0" required>
+    <button type="submit">Add Item</button>
+  </form>
+ <!-- views/dashboard.ejs -->
+<ul>
+    <% items.forEach(item => { %>
+      <li>
+        <strong><%= item.name %></strong> - <%= item.description %> |
+        Price: <%= item.price %> | Quantity: <%= item.quantity %>
+  
+        <!-- Add buy buttons for each item -->
+        <form action="/items/buy/<%= item.id %>/1" method="post">
+          <button type="submit">Buy One</button>
+        </form>
+  
+        <form action="/items/buy/<%= item.id %>/2" method="post">
+          <button type="submit">Buy Two</button>
+        </form>
+  
+        <form action="/items/buy/<%= item.id %>/3" method="post">
+          <button type="submit">Buy Three</button>
+        </form>
+      </li>
+    <% }); %>
+  </ul>
+  
+  
+
+  <!-- Display the list of items here -->
+
+</body>
+
+</html>

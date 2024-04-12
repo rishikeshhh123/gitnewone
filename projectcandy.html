@@ -1,0 +1,95 @@
+
+<html lang="en">
+ 
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+      </head>
+    <body>
+        <form onsubmit="addCandy(event)">
+            <label for="id1">Candy</label>
+            <input type="rext" id="id1"><br>
+                <label for="id2">Description</label>
+                <input type="text" id="id2"><br>
+                       <label for="id3">Price</label>
+                       <input type="number" id="id3"><br>
+                              <label for="id4">Qantity</label>
+                              <input type="number" id="id4"><br>
+                
+                <button style="color:red" type="submit">Add</button>
+        </form>
+        <ul id="output"></ul>
+        </body>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.5/axios.min.js"></script>
+        <script>
+            
+
+            
+            function addCandy(event){
+                event.preventDefault();
+                const candyName=event.target.id1.value;
+                const description=event.target.id2.value;
+                const price=event.target.id3.value;
+                const quantity=event.target.id4.value;
+                const candy={
+                    name:candyName,
+                    description:description,
+                    price:price,
+                    quantity:quantity
+                };
+                axios.post("https://crudcrud.com/api/cd84622e2efe483aac21202827025595/candy",candy)
+   .then((response)=>{
+    displayOutput(response.data)
+    console.log(response)
+   })
+   .catch((err)=>{
+    document.body.innerHTML="<h3>something wrong</h3>"
+    console.log(err)
+   })
+                
+               // displayOutput();
+                }
+                function displayOutput(candy){
+                    const outputDiv=document.getElementById('output');
+                    const childElement=document.createElement('li')
+                    childElement.textContent=candy.name+'--'+candy.description+'--'+candy.price+'--'+candy.quantity;
+                    const btn1=document.createElement("input");
+      btn1.type="button";
+      btn1.value="AddOne";
+       
+
+      }
+      const btn2=document.createElement("input");
+      btn2.type="button";
+      btn2.value="AddTwo";
+      const btn3=document.createElement("input");
+      btn3.type="button";
+      btn3.value="AddThree";
+                   // outputDiv.innerHTMl='';
+                    //candies.forEach(candy=>{
+                      //  outputDiv.innerHTML+=`<p>quantity=${candy.quantity}... Name=${candy.name}(s)Price= -$${candy.price} each</p>`;
+                   // });
+                }
+                function buyOne(){
+if(candies.length>0){
+    candies[0].quantity--;
+    displayOutput();
+}
+                }
+                function buyTwo(){
+                    if(candies.length>0){
+    candies[0].quantity-=2;
+    displayOutput();
+}
+}
+function buyThree(){
+    if(candies.length>0){
+    candies[0].quantity-=3;
+    displayOutput();
+}
+}
+            
+        </script>
+        </html>
